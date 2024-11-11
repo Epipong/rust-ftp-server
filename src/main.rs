@@ -1,12 +1,10 @@
 mod auth;
-mod logger;
 mod utils;
 
 use auth::authenticator::MyAuthenticator;
 use dotenv::dotenv;
 use libunftp::Server;
 use log::{self, error};
-use logger::listener::MyPresenceListener;
 use std::{io::Error, sync::Arc};
 use unftp_sbe_fs::ServerExt;
 use utils::get_local_ip;
@@ -24,7 +22,6 @@ pub async fn main() -> Result<(), Error> {
         .greeting("Welcome to my FTP server")
         .passive_ports(50000..65535)
         .authenticator(Arc::new(MyAuthenticator::default()))
-        .notify_presence(MyPresenceListener)
         .build()
         .unwrap();
 

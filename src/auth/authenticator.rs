@@ -33,7 +33,7 @@ impl Authenticator<DefaultUser> for MyAuthenticator {
         Box::pin(async move { false })
     }
 
-    #[doc = " Authenticate the given user with the given credentials."]
+    #[doc = "Authenticate the given user with the given credentials."]
     #[must_use]
     #[allow(clippy::type_complexity, clippy::type_repetition_in_bounds)]
     fn authenticate<'life0, 'life1, 'life2, 'async_trait>(
