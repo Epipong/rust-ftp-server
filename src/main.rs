@@ -4,7 +4,6 @@ mod utils;
 
 use auth::authenticator::MyAuthenticator;
 use dotenv::dotenv;
-use env_logger;
 use libunftp::Server;
 use log::{self, error};
 use logger::listener::MyPresenceListener;
@@ -17,7 +16,6 @@ pub async fn main() -> Result<(), Error> {
     dotenv().ok();
 
     let ftp_home = std::env::var("FTP_HOME").expect("FTP_HOME must be set.");
-    let ftp_home_dir = ftp_home.clone();
     let local_ip = get_local_ip()?;
     let port = std::env::var("FTP_PORT").unwrap_or("8023".to_owned());
     env_logger::init();
@@ -30,7 +28,7 @@ pub async fn main() -> Result<(), Error> {
         .build()
         .unwrap();
 
-    log::info!("FTP server: {local_ip}:{port} at dir: {:?}", ftp_home_dir);
+    log::info!("FTP server: {local_ip}:{port}");
     if let Err(e) = server.listen(format!("{local_ip}:{port}")).await {
         error!("Failed to start the FTP server: {}", e);
     }

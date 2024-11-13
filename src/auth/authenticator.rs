@@ -16,7 +16,7 @@ impl Default for MyAuthenticator {
 
 impl Authenticator<DefaultUser> for MyAuthenticator {
     fn name(&self) -> &str {
-        &self.username.as_str()
+        self.username.as_str()
     }
 
     fn cert_auth_sufficient<'life0, 'life1, 'async_trait>(

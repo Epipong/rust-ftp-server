@@ -7,8 +7,8 @@ pub fn get_local_ip() -> Result<String, Error> {
 
     let stdout = String::from_utf8_lossy(&output.stdout);
 
-    let re = Regex::new(r"(wlan0|wlan1|wlan2|eth0):.*\n\s+inet\s([\d.]+)").expect("Error on regex");
+    let re = Regex::new(r"(wlan\d|eth\d):.*\n\s+inet\s([\d.]+)").expect("Error on regex");
     re.captures(&stdout)
         .and_then(|caps| caps.get(2).map(|m| m.as_str().to_string()))
-        .ok_or(Error::new(std::io::ErrorKind::Other, "Error on capture"))
+        .ok_or(Error::new(std::io::ErrorKind::NotFound, "wlan or eth not found. Try to enable the WI-FI or to enable the personal hotspot"))
 }
